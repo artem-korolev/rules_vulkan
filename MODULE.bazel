@@ -1,0 +1,4 @@
+module(
+    name = "com_github_zaucy_rules_vulkan",
+    version = "0.1.0",
+)
