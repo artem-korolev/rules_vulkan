@@ -1,0 +1,33 @@
+# MODULE.bazel
+module(
+    name = "com_github_zaucy_rules_vulkan",
+    # Pick a real version or semver. If publishing to a registry, 
+    # keep it in sync with your releases (e.g. "1.3.0", "0.1.0", etc.).
+    version = "1.0.0",  
+)
+
+# Because `vulkan_repos()` relies on rules_7zip,
+# we either assume rules_7zip is in a registry or we do an override.
+# Let's assume for demonstration that rules_7zip is also Bzlmod-ready:
+# bazel_dep(name = "rules_7zip", version = "0.1.0")
+
+# Alternatively, if rules_7zip isn't in a registry, do something like:
+# archive_override(
+#    module_name = "rules_7zip",
+#    urls = ["https://github.com/zaucy/rules_7zip/archive/SOME_COMMIT_HASH.zip"],
+#    strip_prefix = "rules_7zip-SOME_COMMIT_HASH",
+#    # patches, sha256, etc.
+# )
+
+# Now define (or load) a module extension that calls `vulkan_repos()`.
+
+# rules_vulkan_extension = use_extension("//:extension.bzl", "rules_vulkan_extension")
+# use_repo(rules_vulkan_extension, "vulkan_sdk")
+
+# If you want to let the user call `use_extension("@com_github_zaucy_rules_vulkan//:extension.bzl", ...)`,
+# you can either do nothing here or do a self-usage for your own testing, e.g.:
+# use_extension("//:extension.bzl", "rules_vulkan_extension")(version = "1.3.243.0")
+# use_repo(rules_vulkan_extension, "vulkan_sdk")
+# use_repo(rules_vulkan_extension, "vulkan_sdk_windows")
+# use_repo(rules_vulkan_extension, "vulkan_sdk_linux")
+# use_repo(rules_vulkan_extension, "vulkan_sdk_macos")
